@@ -1,8 +1,9 @@
 // array of questions for user
+const generateMarkdown = require("./utils/generateMarkdown");
 const fs = require ("fs");
 const inquirer = require ("inquirer");
 
-inquirer.prompt([
+const questions = [
     {
         type: "input",
         message: "What is your github username?",
@@ -56,66 +57,31 @@ inquirer.prompt([
    },
    {
     type: "input",
-    message: "Where can people find support?",
-    name: "supportInput",
-   },
-   {
-    type: "input",
     message: "State if you are open to contributions and what your requirements are for accepting them",
     name: "contributeInput",
    },
-])
-.then((response) => {
-    console.log(response);
-});
+];
 
 
+// function to write README file
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        if (err) throw err;
+        console.log("ReadMe generated!")
+    })
+}
 
-// // function to write README file
-fs.writeFile("README.md", response, (err) => {
-    if (err) throw err;
-    console.log("Complete");
-})
+// function to initialize program
+function init() {
+    inquirer.prompt(questions)
+    .then((response) => {
+        console.log(response);
+        writeToFile(`${response.inputTitle}_README.md`, generateMarkdown(answers));
+    })
+    .catch((error) => {
+        if (error) throw error;
+    });
+}
 
-// // mark down
-
-// const readme = `
-// # ${response.titleInput}
-
-// ## Table of Contents
-// * [Description](#description)
-// * [Installation](#installation)
-// * [Usage](#usage)
-// * [License](#license)
-// * [Contributors](#contributors)
-// * [Testing](#testing)
-// * [Questions](#questions)
-
-
-// ## Descritption
-// ${response.descInput}
-
-// ## Installation
-// ${response.installInput}
-
-// ## Usage
-// ${response.usageInput}
-
-// ## License
-// This application is covered under the ${response.license} license.
-
-// ## Contributors
-// ${response.contributeInput}
-
-// ## Testing
-// ${response.testInput}
-
-// ## Questions
-// Created by [${response.usernameInput}](https://github.com/${response.usernameInput})
-
-// [${response.repoInput}] (${response.urlInput})
-
-// If you have any questions, please reach me at [${response.emailInput}](${response.emailInput})
-
-
-// `;
+// function call to initialize program
+init();
