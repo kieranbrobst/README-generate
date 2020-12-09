@@ -1,6 +1,3 @@
-const fs = require ("fs");
-
-
 // function to generate markdown for README
 function generateMarkdown(response) {
   return `# ${response.titleInput}
@@ -12,7 +9,7 @@ function generateMarkdown(response) {
   * [License](#license)
   * [Contributors](#contributors)
   * [Testing](#testing)
-  * [Questions](#questions)
+  * [Comments](#comments)
   
   
   ## Descritption
@@ -33,7 +30,7 @@ function generateMarkdown(response) {
   ## Testing
   ${response.testInput}
   
-  ## Questions
+  ## Comments
   Created by [${response.usernameInput}](https://github.com/${response.usernameInput})
   
   [${response.repoInput}] (${response.urlInput})

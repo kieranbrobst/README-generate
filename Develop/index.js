@@ -76,7 +76,7 @@ function init() {
     inquirer.prompt(questions)
     .then((response) => {
         console.log(response);
-        writeToFile(`${response.inputTitle}_README.md`, generateMarkdown(answers));
+        writeToFile(`${response.titleInput}_README.md`, generateMarkdown(response));
     })
     .catch((error) => {
         if (error) throw error;
